@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>U1-W3-D4</title>
+    <style>
+      .tabellone {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        grid-gap: 10px;
+        width: 500px;
+        margin: 20px auto;
+      }
+      .cella {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        background-color: #f2f2f2;
+        border: 1px solid #ddd;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .estratto {
+        background-color: #ffcc00;
+        color: white;
+      }
+
+      .btn-estrazione {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn-estrazione:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tabellone della Tombola</h1>
+
+    <div id="tabellone" class="tabellone"></div>
+
+    <button id="estrazioneBtn" class="btn-estrazione">Estrai Numero</button>
+
+    <script>
+      function creaTabellone() {
+        const tabelloneDiv = document.getElementById("tabellone");
+
+        for (let i = 1; i <= 90; i++) {
+          const cella = document.createElement("div");
+          cella.classList.add("cella");
+          cella.textContent = i;
+          cella.setAttribute("data-numero", i);
+          tabelloneDiv.appendChild(cella);
+        }
+      }
+
+      function estraiNumero() {
+        const numeroEstratto = Math.floor(Math.random() * 90) + 1;
+
+        const celle = document.querySelectorAll(".cella");
+        celle.forEach((cella) => {
+          if (parseInt(cella.textContent) === numeroEstratto) {
+            cella.classList.add("estratto");
+          }
+        });
+
+        document.getElementById("estrazioneBtn").disabled = true;
+      }
+
+      document.getElementById("estrazioneBtn").addEventListener("click", estraiNumero);
+
+      window.onload = creaTabellone;
+    </script>
+  </body>
+</html>
